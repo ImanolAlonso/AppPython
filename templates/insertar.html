@@ -39,7 +39,7 @@
                     {% if form.categoria.errors %}
                         <p class="error">{{ ', '.join(form.categoria.errors) }}</p>
                     {% endif %}
-                    {{ form.guardar(class="btn btn-primary col-lg-11 col-md-11 col-sm-11", type="submit") }}
+                    <div class="text-center"> {{ form.guardar(class="btn btn-primary mt-4 col-md-3", type="submit") }} </div>
                 </form>
             </div>
         </div>
