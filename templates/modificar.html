@@ -36,7 +36,7 @@
                     <div class="row row-col-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-2">
                         <div class="col d-flex flex-column justify-content-center">
                             <li class="list-group-item">
-                                <form action="/edit/{{ producto.id }}" method="POST" enctype="multipart/form-data">
+                                <form action="/edit/{{ producto.id }}" method="POST" enctype="multipart/form-data" onsubmit="return validarFormulario()">
                                     <small>Nombre</small>
                                     <input type="text" class="form-control mb-5" value="{{ producto.nombreProducto }}" name="nombreProducto">
                                     <small>Stock</small>
@@ -73,13 +73,17 @@
                 var regex = /^[0-9]+$/;
                 // Validacion de la fecha
                 if (fecha === "") {
-                alert("Debe introducir una fecha");
-                valorReturn = false;
+                    alert("Debe introducir una fecha");
+                    valorReturn = false;
                 }
                 if(nombre === ""){
                     alert("El campo de nombre no puede estar vacio");
                     valorReturn = false;
                 }
+                if (stock === "") {
+                    alert("El campo de stock no puede estar vacio");
+                    valorReturn = false;
+                    }
                 if (!regex.test(stock) && valorReturn != false){
                     alert("El campo de stock debe contener solo números");
                     valorReturn = false;

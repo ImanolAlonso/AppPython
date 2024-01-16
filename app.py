@@ -113,7 +113,7 @@ def edit_producto_form(id):
         # return student_schema.jsonify(student)
         # response = jsonify({'message' : 'Estudiante ' + id + ' actualizado correctamente'})
         flash('Producto modificado correctamente')
-        return redirect(url_for('listar_producto'))
+        return listar_producto()
     else:
         return notFound()
 @app.route('/imagen/<nombre>')
