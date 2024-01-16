@@ -1,0 +1,67 @@
+{% extends "maestra.html" %}
+
+{% block title %}LISTADO DATOS{% endblock %}
+
+{% block content %}
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Api-Rest CRUD Python - MongoDB</title>
+    </head>
+    <body>
+        <div>
+            <h1 class="text-center my-4">LISTADO PRODUCTOS</h1>
+            {% with messages = get_flashed_messages() %} {% if messages %} {% for message in
+                messages %}
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                {{message}}
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"
+                    ></button>
+                </div>
+            {% endfor %} {% endif %} {% endwith %}
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div>
+                    <div class="row row-col-6 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
+                        {% for producto in productos %}
+
+                            <div class="col card mx-2">
+                                    <form action="/edit/{{ producto.id }}" method="POST" class="mt-2">
+                                        <small>Nombre</small>
+                                        <input type="text" class="form-control" value="{{ producto.nombreProducto }}" name="nombre">
+                                        <small>Fecha lanzamiento</small>
+                                        <input type="text" class="form-control" value="{{ producto.fecha }}" name="fecha">
+                                        <small>Categoria</small>
+                                        <input type="text" class="form-control" value="{{ producto.categoria.nombreCategoria }}" name="categoria">
+                                        <small>Imagen</small>
+                                        <img class="img-fluid mt-2" src="data:image/jpeg;base64,{{ base64.b64encode(producto.imagen).decode('utf-8') }}">
+                                    </form>
+                                    {# BOTONES #}
+                                    <div class="mb-4 text-center">
+                                        <a href="{{ url_for('detalle_producto', id=producto.id) }}" 
+                                        class="btn btn-info btn-sm mt-3">Detalle</a>
+                                        <a href="{{ url_for('edit_producto', id=producto.id) }}" 
+                                        class="btn btn-primary btn-sm mt-3">Modificar</a>
+                                        <a href="{{ url_for('delete_producto', id=producto.id) }}" 
+                                        class="btn btn-danger btn-sm mt-3">Eliminar</a>
+                                    </div>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </body>
+    </html>
+{% endblock %}

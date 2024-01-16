@@ -1,0 +1,73 @@
+{% extends "maestra.html" %}
+
+{% block title %}LISTADO DATOS{% endblock %}
+
+{% block content %}
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+    </head>
+    <body>
+
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in
+            messages %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{message}}
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            ></button>
+            </div>
+        {% endfor %} {% endif %} {% endwith %}
+        <div class="container">
+            <h1 class="text-center mt-5 mb-5">MODIFICAR PRODUCTO</h1>
+        </div>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h5 class="text-center">Producto con id {{ producto.id }}</h5>
+                    </div>
+                </div>
+                <div class="card-body row">
+                    <div class="row row-col-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-2">
+                        <div class="col">
+                            <li class="list-group-item mb-3">
+                                <form action="/edit/{{ producto.id }}" method="POST" enctype="multipart/form-data">
+                                    <small>Nombre</small>
+                                    <input type="text" class="form-control" value="{{ producto.nombreProducto }}" name="nombreProducto">
+                                    <small>Stock</small>
+                                    <input type="text" class="form-control" value="{{ producto.stock }}" name="stock">
+                                    <small>Fecha lanzamiento</small>
+                                    <input type="date" class="form-control" value="{{ producto.fecha|safe }}" name="fecha">
+                                    <small>Categoria</small>
+                                    <select class="form-select" name="categoria" >
+                                        <option value="1" {% if producto.idCategoria == 1 %}selected{% endif %}>Película</option>
+                                        <option value="2" {% if producto.idCategoria == 2 %}selected{% endif %}>Funko</option>
+                                        <option value="3" {% if producto.idCategoria == 3 %}selected{% endif %}>Comic</option>
+                                    </select>
+                        </div>
+                        <div class="col">
+                            <small>Imagen</small>
+                            <img class="img-fluid" src="data:image/jpeg;base64,{{ base64.b64encode(producto.imagen).decode('utf-8') }}">
+                            <input type="file" class="form-control" value="" name="imagen">
+                            {#<input type="text" class="form-control" value="{{ producto.categoria.nombreCategoria }}" name="categoria">#}
+                            <input type="submit" value="Modificar" class="btn btn-success btn-sm mt-3">
+                        </div>
+                                </form>
+                            </li>
+                        
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </body>
+    </html>
+{% endblock %}

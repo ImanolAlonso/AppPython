@@ -1,0 +1,47 @@
+<!-- insertar.html es hija de maestra.html -->
+{% extends "maestra.html" %}
+
+{% block title %}INSERTAR DATOS{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">INSERTAR PRODUCTO</h1>
+    </div>
+
+    <div class="container d-flex align-items-center justify-content-center mb-4">
+        <div class="card col-5">
+            <div class="card-header">
+                <h5 class="text-center">Datos del producto</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('add_producto_form') }}" method="POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <label>{{ form.nombreProducto.label }}</label>
+                    {{ form.nombreProducto(class="form-control mb-3") }}
+                    {% if form.nombreProducto.errors %}
+                        <p class="error">{{ ', '.join(form.nombreProducto.errors) }}</p>
+                    {% endif %}
+                    <label>{{ form.stock.label }}</label>
+                    {{ form.stock(class="form-control mb-3") }}
+                    {% if form.stock.errors %}
+                        <p class="error">{{ ', '.join(form.stock.errors) }}</p>
+                    {% endif %}
+                    <label>{{ form.fecha.label }}</label>
+                    {{ form.fecha(class="form-control mb-3") }}
+                    <label>{{ form.imagen.label }}</label>
+                    {{ form.imagen(class="form-control mb-3") }}
+                    {% if form.imagen.errors %}
+                        <p class="error">{{ ', '.join(form.imagen.errors) }}</p>
+                    {% endif %}
+                    <label>{{ form.categoria.label }}</label>
+                    {{ form.categoria(class="form-select") }}
+                    {% if form.categoria.errors %}
+                        <p class="error">{{ ', '.join(form.categoria.errors) }}</p>
+                    {% endif %}
+                    {{ form.guardar(class="btn btn-primary col-lg-11 col-md-11 col-sm-11", type="submit") }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
