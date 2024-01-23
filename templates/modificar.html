@@ -45,6 +45,7 @@
                                     <input type="date" class="form-control mb-5" value="{{ producto.fecha|safe }}" name="fecha">
                                     <small>Categoria</small>
                                     <select class="form-select" name="categoria" >
+                                        {# Opcion seleccionada por defecto la que tiene en la base de datos #}
                                         <option value="1" {% if producto.idCategoria == 1 %}selected{% endif %}>Película</option>
                                         <option value="2" {% if producto.idCategoria == 2 %}selected{% endif %}>Funko</option>
                                         <option value="3" {% if producto.idCategoria == 3 %}selected{% endif %}>Comic</option>

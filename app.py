@@ -24,7 +24,7 @@ def validate_image_size(form, field):
         if file_size > max_size:
             raise ValidationError('La imagen no puede ser mayor a 64KB.')
 
-
+#Validacion del formulario
 class ProductoForm(FlaskForm):
     nombreProducto = StringField('Nombre', validators=[DataRequired()])
     stock = IntegerField('Stock', validators=[DataRequired(), NumberRange(min=0)])
@@ -56,7 +56,6 @@ def add_producto_form():
         basepath = os.path.dirname (__file__) #ruta donde esta el archivo actual
         imagen.save(os.path.join(basepath, 'static', 'imgs', imagen.filename))
 
-        # Realizar las acciones necesarias con los datos...
         flash('Formulario procesado exitosamente')
         return listar_producto()
     return render_template('insertar.html',form = formulario)
@@ -64,11 +63,13 @@ def add_producto_form():
 @app.route('/listado')
 def listar_producto():
     productos = Producto.query.all()
+    #Se pasa el resultado de la consulta y el base64 para poder mostrar las imagenes en el fichero de listado.html 
     return render_template('listado.html', productos = productos, base64 = base64)
 
 @app.route('/detalle/<id>', methods=['GET'])
 def detalle_producto(id):
     producto = obtener_producto(id)
+    #Se pasa el resultado de la consulta y el base64 para poder mostrar las imagenes en el fichero de detalle.html 
     return render_template('detalle.html', producto = producto, base64 = base64)
 
 def obtener_producto(id):
@@ -86,6 +87,7 @@ def delete_producto(id):
 @app.route('/edit/<id>')
 def edit_producto(id):
     producto = Producto.query.get(id)
+    #Mostrar los datos que ya tiene el producto
     return render_template('modificar.html',producto = producto, base64 = base64)
 
 @app.route('/edit/<id>', methods=['POST'])
@@ -104,18 +106,18 @@ def edit_producto_form(id):
         producto.fecha = datetime.strptime(fecha, '%Y-%m-%d')
         producto.idCategoria = int(categoria)
         
+        #Modificacion de la imagen si recibe una nueva
         if 'imagen' in request.files and request.files['imagen'].filename != '':
             imagen = request.files['imagen']
             producto.nombreImagen = imagen.filename
             producto.imagen = BytesIO(imagen.read()).read()
         
         db.session.commit()
-        # return student_schema.jsonify(student)
-        # response = jsonify({'message' : 'Estudiante ' + id + ' actualizado correctamente'})
         flash('Producto modificado correctamente')
         return listar_producto()
     else:
         return notFound()
+    
 @app.route('/imagen/<nombre>')
 def imagen_producto(nombre):
     producto = Producto.query.filter_by(nombreImagen=nombre).first()

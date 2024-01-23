@@ -33,20 +33,20 @@
             <div class="row">
                 <div>
                     <div class="row row-col-6 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
-                        {% for producto in productos %}
+                        {% for producto in productos %} {# Bucle para recorrer los productos de la consulta que se ha pasado por parametro #}
 
                             <div class="col card mx-2">
                                     <form action="/edit/{{ producto.id }}" method="POST" class="mt-2">
                                         <small>Nombre</small>
-                                        <input type="text" class="form-control" value="{{ producto.nombreProducto }}" name="nombre">
-                                        <small>Fecha lanzamiento</small>
+                                       <input type="text" class="form-control" value="{{ producto.nombreProducto }}" name="nombre">
+                                       <small>Fecha lanzamiento</small>
                                         <input type="text" class="form-control" value="{{ producto.fecha }}" name="fecha">
-                                        <small>Categoria</small>
-                                        <input type="text" class="form-control" value="{{ producto.categoria.nombreCategoria }}" name="categoria">
-                                        <small>Imagen</small>
-                                        <img class="img-fluid mt-2" src="data:image/jpeg;base64,{{ base64.b64encode(producto.imagen).decode('utf-8') }}">
+                                       <small>Categoria</small>
+                                       <input type="text" class="form-control" value="{{ producto.categoria.nombreCategoria }}" name="categoria">
+                                       <small>Imagen</small>
+                                       <img class="img-fluid mt-2" src="data:image/jpeg;base64,{{ base64.b64encode(producto.imagen).decode('utf-8') }}">
                                     </form>
-                                    {# BOTONES #}
+                                     {# BOTONES #}
                                     <div class="mb-4 text-center">
                                         <a href="{{ url_for('detalle_producto', id=producto.id) }}" 
                                         class="btn btn-info btn-sm mt-3">Detalle</a>

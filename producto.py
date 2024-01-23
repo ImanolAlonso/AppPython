@@ -7,7 +7,6 @@ class Categoria(db.Model):
 
     idCategoria = db.Column(db.Integer, primary_key=True)
     nombreCategoria = db.Column(db.String(255), nullable=False)
-    #productos = db.relationship('Producto', backref='categoria')
 
     def __init__(self, nombreCategoria):
         self.nombreCategoria = nombreCategoria
@@ -17,7 +16,6 @@ class Categoria(db.Model):
     
 class Producto(db.Model):
     __tablename__ = 'Producto'
-    ##
     id = db.Column(db.Integer, primary_key=True)
     nombreProducto = db.Column(db.String(100), nullable=False)
     stock = db.Column(db.Integer, nullable=False)
