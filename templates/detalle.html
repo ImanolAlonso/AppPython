@@ -13,7 +13,9 @@
             <li class="list-group-item"><strong>Fecha de lanzamiento:</strong> {{ producto.fecha }}</li>
             <li class="list-group-item"><strong>Categoría:</strong> {{ producto.categoria.nombreCategoria }}</li>
             <li class="list-group-item"><strong>Imagen:</strong> {{ producto.nombreImagen }}</li>
+            {% if producto.imagen %}
             <li class="list-group-item text-center" id="img"><a href="{{ url_for('imagen_producto', nombre=producto.nombreImagen) }}" target = "_blank"><img class="img-fluid" src="data:image/jpeg;base64,{{ base64.b64encode(producto.imagen).decode('utf-8') }}"></img></a></li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}

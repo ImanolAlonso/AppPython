@@ -52,7 +52,9 @@
                                     </select>
                                 </div>
                                 <div class="col">
+                                    {% if producto.imagen %}
                                     <img class="img-fluid" src="data:image/jpeg;base64,{{ base64.b64encode(producto.imagen).decode('utf-8') }}">
+                                    {% endif %}
                                     <input type="file" class="form-control" value="" name="imagen">
                                 </div>
                                 <div class="text-center"><input type="submit" value="Modificar" class="btn btn-success btn-sm mb-3 col-md-4 fs-5"></div>
